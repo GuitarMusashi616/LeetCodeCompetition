@@ -5,13 +5,14 @@ import sys
 import datetime
 
 
-def pickRandom(leetcodes, numChoices):
-  print()
+def pickRandom(leetcodes, numChoices, not_picked):
   for i in range(numChoices):
     choice = random.choice(leetcodes)
-    leetcodes.remove(choice)
+    while choice[0] not in not_picked:
+      choice = random.choice(leetcodes)
+      
+    not_picked.remove(choice[0])
     print(f"{i}) {choice[0]} ({choice[1]})\t- {choice[2]}")
-  print()
 
 
 def timer(remaining):
@@ -26,12 +27,16 @@ def timer(remaining):
 def main():
   # 1, 2, 3 - easy, medium, hard
   leetcodes = json.load(open("leetcodes.json"))
+  not_picked = {x[0] for x in leetcodes}
   
   # easy only
-  leetcodes = [x for x in leetcodes if x[1] == "Easy"]
-
-  pickRandom(leetcodes, 4)
-
+  easy = [x for x in leetcodes if x[1] == "Easy"]
+  
+  print()
+  pickRandom(easy, 2, not_picked)
+  pickRandom(leetcodes, 2, not_picked)
+  print()
+  
   # 1 hr 10 min
   timer(1*60**2 + 10*60)  
 
