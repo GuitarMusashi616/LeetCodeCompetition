@@ -5,13 +5,12 @@ import sys
 import datetime
 
 
-
 def pickRandom(leetcodes, numChoices):
   print()
   for i in range(numChoices):
     choice = random.choice(leetcodes)
     leetcodes.remove(choice)
-    print(f"{i}) {choice[0]} ({choice[1]}) {choice[2]}")
+    print(f"{i}) {choice[0]} ({choice[1]})\t- {choice[2]}")
   print()
 
 
@@ -34,6 +33,6 @@ def main():
   pickRandom(leetcodes, 4)
 
   # 1 hr 10 min
-  timer(5)  
+  timer(1*60**2 + 10*60)  
 
 main()
