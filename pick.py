@@ -7,8 +7,7 @@ import datetime
 class LeetCodePicker:
   def __init__(self, filename):
     self.leetcodes = self.load_leetcodes(filename)
-    self.not_picked = {x[0] for x in self.leetcodes}
-    self.easy_leetcodes = self.filter_leetcodes_by_difficulty("easy")
+    self.picked = set()
     self.i = 1
     print()
   
@@ -22,16 +21,16 @@ class LeetCodePicker:
     leetcodes = self.leetcodes if difficulty is None else self.filter_leetcodes_by_difficulty(difficulty)
     for _ in range(numChoices):
       choice = random.choice(leetcodes)
-      while choice[0] not in self.not_picked:
+      while choice[0] in self.picked:
         choice = random.choice(leetcodes)
         
-      self.not_picked.remove(choice[0])
+      self.picked.add(choice[0])
       print(f"{self.i}) {choice[0]} ({choice[1]})\t- {choice[2]}")
       self.i += 1
 
-  def timer(self, remaining):
+  def timer(self, seconds):
     print()
-    for remaining in range(remaining, -1, -1):
+    for remaining in range(seconds, -1, -1):
         sys.stdout.write("\r")
         sys.stdout.write(f"Time Remaining: {datetime.timedelta(seconds=remaining)} ") 
         sys.stdout.flush()
